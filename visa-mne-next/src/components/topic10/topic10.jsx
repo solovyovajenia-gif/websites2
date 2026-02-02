@@ -1,0 +1,555 @@
+'use client'
+
+import Link from "next/link";
+import Image from "next/image";
+import {motion} from "framer-motion";
+import {usePathname} from "next/navigation";
+import {useModal} from "@/components/modalcontext";
+import {countries} from "@/data/countries";
+import Contacts from "@/components/contacts";
+import Breadcrumbs from "@/components/Breadcrumbs";
+import Faq10, {faqData} from "@/components/topic10/faq10";
+import NextArticleLink from "@/components/nextArtLink";
+
+const year = new Date().getFullYear();
+
+const BreadcrumbNav = ({pathname}) => (
+    <nav className="mb-4 mdd:text-xs flex items-baseline sm:space-x-2 mdd:space-x-0 text-gray-600 gap-2">
+        <Link href="/"
+              className="text-orange-500 hover:underline active:scale-95 transition-transform duration-150 ease-in-out">
+            Главная
+        </Link>
+        <Image src="/nav-icon.png" alt=">" width={8} height={8} className="w-2"/>
+        <Link
+            href="/poleznaya-informasia"
+            className={`text-orange-500 hover:underline ${pathname === "/poleznaya-informasia" ? "font-semibold text-gray-900 pointer-events-none w-full active:scale-95 transition-transform duration-150 ease-in-out" : ""}`}
+        >
+            Полезная информация
+        </Link>
+        <Image src="/nav-icon.png" alt="" width={8} height={8} className="w-2"/>
+        <span className="font-semibold text-gray-900 cursor-default">Как получить рабочую визу</span>
+    </nav>
+);
+
+export default function OnasPage({breadcrumbs}) {
+    const pathname = usePathname();
+    const {openModal} = useModal();
+
+    // FAQ Schema
+    const faqSchema = {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": faqData.map((faq) => ({
+            "@type": "Question",
+            "name": `ВОПРОС: ${faq.question}`,
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": faq.answer
+            }
+        }))
+    };
+
+    // Article Schema
+    const articleSchema = {
+        "@context": "https://schema.org",
+        "@type": "NewsArticle",
+        "author": [{
+          "@type": "Person",
+          "name": "Елизавета Бокая",
+          "jobTitle": "руководитель отдела продаж"
+        }],
+        "headline": "Как получить рабочую визу: документы, этапы и советы для белорусов | VISA VAM",
+        "alternativeHeadline": "Узнайте, как получить рабочую визу в Европу: какие документы нужны, как подать заявление и избежать отказа. Пошаговая инструкция от VISA VAM - помощь в оформлении визы по всей Беларуси, 10 лет опыта, страховка от отказа.",
+        "datePublished": "2025-11-01T08:00:00+05:00",
+        "dateModified": "2025-11-01T21:33:00+05:00",
+        "articleBody": `
+Как получить рабочую визу: полное руководство для белорусов в 2025 году
+Хотите работать в другой стране? Это отличный шанс хорошо заработать, набраться опыта и посмотреть мир. Многие едут за хорошей зарплатой, новыми возможностями и стабильностью.
+Чтобы всё было легально, нужна рабочая виза. С ней в другой стране вы сможете устроиться на работу официально, а значит, ваши права будут защищены. Вы будете чувствовать себя спокойно и уверенно. Работать нелегально - плохая идея. Давайте лучше разберёмся, как правильно получить рабочую визу.
+(H2) Что такое рабочая виза и почему без нее не обойтись?
+Многие ошибочно полагают, что для работы за рубежом достаточно любой визы. Это не так. Туристическая, гостевая или деловая виза не дают права на трудоустройство. Попытка работать по ним может привести к депортации и запрету на въезд в страны ЕС.
+💡 Важно: нельзя приехать по туристической визе и “переоформить” её на рабочую уже за границей. Процесс получения нужно начинать заранее - ещё находясь в Беларуси.
+(H3) Ключевые отличия рабочей визы:
+Для работы выдается национальная долгосрочная виза типа D, а не краткосрочная шенгенская виза типа C.
+Она четко подтверждает, что вы едете в страну именно для трудовой деятельности.
+Процесс нужно начинать заблаговременно, находясь в Беларуси.
+Понимание этих нюансов - первый шаг к успешному результату.
+(H2) Популярные направления для трудоустройства
+Белорусы чаще всего выбирают для работы страны Европейского союза. Требования в каждой стране могут незначительно отличаться, но общий принцип остается схожим, поэтому важно заранее уточнить все нюансы.
+Наиболее востребованные направления среди белорусов:
+Польша
+Германия
+Литва
+Чехия
+Италия
+Испания
+Латвия.
+
+Особенно часто наших клиентов интересует, как получить рабочую визу в Польшу или Германию. Эти страны предлагают множество вакансий, достойные условия труда и упрощённые требования для граждан Беларуси. Польша привлекает возможностью быстрого трудоустройства, а Германия - отсутствием верификации, высокими зарплатами и стабильностью. Наши специалисты знают все актуальные требования для каждого направления и помогут оформить визу без лишних хлопот.
+### Какие документы нужны для рабочей визы?
+Это самый ответственный этап, где любая ошибка может привести к отказу. Точный список зависит от страны, но базовый пакет бумаг практически всегда одинаков.
+Вот что требуется:
+Действующий паспорт (не менее 6 месяцев до окончания, 2 свободные страницы);
+Фотографии установленного образца;
+Заполненная анкета на рабочую визу;
+Приглашение от работодателя или подписанный трудовой договор;
+Медицинская страховка на срок действия визы;
+Подтверждение финансовой состоятельности или гарантия от работодателя;
+Документы об образовании и квалификации (дипломы, сертификаты);
+Медицинская справка об отсутствии противопоказаний для работы.
+В некоторых случаях могут потребоваться и другие документы для трудовой визы: справка о несудимости, подтверждение финансовой состоятельности или языковые сертификаты.
+(H2) Как оформить рабочую визу: пошаговый процесс
+Процедура получения визы может показаться сложной, но если разбить ее на этапы, все становится понятнее.
+(H3) Этапы оформления:
+Консультация и подготовка со специалистом. Первый и самый важный шаг, который дает понять, что нужно для оформления рабочей визы в вашем конкретном случае. На этом этапе мы анализируем вашу ситуацию и составляем точный список документов.
+Сбор и проверка документов - мы помогаем корректно заполнить анкету и проверяем каждый документ на соответствие требованиям консульства. Профессиональная подготовка сводит риск ошибок к нулю.
+Запись на подачу. Самостоятельно "поймать" свободное место в визовом центре бывает очень сложно. Мы берем эту задачу на себя и записываем вас на удобную дату.
+Подача собранного пакета документов в визовый центр или консульство.
+Ожидание решения - варьируется от 7 до 45 рабочих дней в зависимости от страны и загруженности консульства.
+Получение паспорта. Вы забираете паспорт с готовой визой и можете готовиться к поездке.
+### Совет:  Если вы не знаете, как подать документы на рабочую визу или опасаетесь ошибок - лучше доверить процесс специалистам.
+###  Почему могут отказать в визе?
+Отказ в рабочей визе - это неприятно, но не приговор. Важно понимать причины, чтобы избежать их в будущем.
+Ошибки в анкете или неполный пакет документов.
+Сомнения в подлинности приглашения от работодателя.
+Несоответствие вашей квалификации заявленной должности.
+Предоставление ложной информации.
+Хорошая новость: в отличие от туристических виз, прошлая визовая история почти не влияет на решение. Важнее правильно подготовленный пакет документов.
+###  VISA VAM - ваш надежный партнер в Минске
+Если не знаете, как оформить рабочую визу и какие документы подготовить, специалисты VISA VAM помогут на каждом этапе. Мы уже более 10 лет помогаем белорусам получать визы для работы, учебы и путешествий. Мы знаем, как важен результат, и делаем все, чтобы процесс прошел для вас без стресса.
+### Почему нам доверяют:
+Полное сопровождение. Мы ведем вас за руку: от первой консультации и помощи в заполнении анкеты до успешной подачи документов.
+Индивидуальный подход. Мы не работаем по шаблону. Для каждого клиента мы находим персональное решение, учитывая его ситуацию и цели.
+Экономия вашего времени. Мы знаем все актуальные требования консульств и берем на себя самые сложные этапы, включая запись на подачу.
+Страховка от отказа. Мы уверены в качестве своей работы, поэтому предлагаем уникальный оффер - страховку на возврат средств за услуги, которая защитит ваши интересы.
+Мы поможем не только с проверкой, но и с подготовкой полного пакета документов, чтобы ваш путь к работе мечты был максимально простым и быстрым.
+
+`,
+        "about": [
+            { "@type": "Thing", "name": "рабочая виза" },
+            { "@type": "Thing", "name": "виза для белорусов" },
+            { "@type": "Thing", "name": "2025 год" },
+            { "@type": "Thing", "name": "путешествия в Европу" },
+            { "@type": "Thing", "name": "работа в Европе" }
+        ],
+        "url": "https://visavampro.by/poleznaya-informasia/kak-poluchit-rabochyu-vizy",
+        "publisher": {
+            "@type": "Organization",
+            "name": "VISA VAM",
+            "url": "https://visavampro.by/",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "/logo.png",
+                "width": 600,
+                "height": 60
+            }
+        },
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https://visavampro.by/poleznaya-informasia/kak-poluchit-rabochyu-vizy"
+        }
+    };
+
+    return (
+        <div>
+            {breadcrumbs && <Breadcrumbs breadcrumbs={breadcrumbs}/>}
+
+            <div
+                className="w-full relative left-0 top-[200px] lg:top-[250px] mdd:top-[135px] flex flex-col sm:flex-col justify-between">
+                <div
+                    className="w-full text-left lg:text-left z-10 px-[7%] flex flex-col lg:gap-24 sm:gap-12 mdd:gap-12">
+                    <BreadcrumbNav pathname={pathname}/>
+                    <h1 className="dm:w-full ht:text-[40px] lg:text-[40px] md:text-[40px] sm:text-[34px] mdd:text-[28px] font-medium text-black">
+                            Как получить рабочую визу: полное руководство для белорусов в {year} году
+                    </h1>
+                </div>
+                <div className="w-full px-[7%] pt-[20px]">
+                    <p>01.11.2025</p>
+                    <p><b>Автор: </b>Елизавета Бокая</p>
+                </div>
+            </div>
+
+            <div className="relative mt-[200px] md:mt-[320px]">
+                {/* Banner Section */}
+                <div className="w-full relative">
+                    <Image
+                        src="/topic10.webp"
+                        alt="О компании VisaVam"
+                        width={1600}
+                        height={1000}
+                        priority={true}
+                        className="w-full h-96 object-cover object-[50%_20%] px-0 lg:px-[7%] md:px-[7%] mdd:hidden"
+                    />
+                    <Image
+                        src="/topic10.webp"
+                        alt="О компании VisaVam"
+                        width={600}
+                        height={400}
+                        quality={80}
+                        priority={true}
+                        loading="eager"
+                        className="w-full object-cover px-0 lg:px-[7%] md:px-[7%] sm:hidden"
+                    />
+                </div>
+
+                {/* About Text Section */}
+                <div
+                    className="w-full relative flex flex-col gap-24 mdd:gap-12 px-[7%] pt-32 mdd:pt-20 text-[16px] mdd:text-[14px]">
+                    <div className="w-[80%] mdd:w-full flex flex-col gap-4">
+                        <p>
+                            Хотите работать в другой стране? Это отличный шанс хорошо заработать, набраться опыта и посмотреть мир. 
+                            Многие едут за хорошей зарплатой, новыми возможностями и стабильностью.
+                        </p>
+                        <p>
+                            Чтобы всё было легально, нужна рабочая виза. С ней в другой стране вы сможете устроиться на работу официально, 
+                            а значит, ваши права будут защищены. Вы будете чувствовать себя спокойно и уверенно. Работать нелегально - 
+                            плохая идея. Давайте лучше разберёмся, <b>как правильно получить рабочую визу</b>.
+                        </p>
+                    </div>
+
+                    <div className="w-[80%] mdd:w-full flex flex-col gap-4">
+                        <h2 className="text-[18px] md:text-[28px] sm:text-[22px] font-semibold">
+                            Что такое рабочая виза и почему без нее не обойтись?
+                        </h2>
+                        <p>
+                            Многие ошибочно полагают, что для работы за рубежом достаточно любой визы. Это не так. 
+                            Туристическая, гостевая или деловая виза не дают права на трудоустройство. Попытка работать по 
+                            ним может привести к депортации и запрету на въезд в страны ЕС.
+                        </p>
+                        <p className={"italic text-[14px]"}>
+                            💡  <span className={"font-bold"}> Важно:</span> нельзя приехать по туристической визе и “переоформить” 
+                            её на рабочую уже за границей. Процесс получения нужно начинать <b>заранее</b> - ещё находясь в Беларуси.
+                        </p>
+                        <h3 className="text-[16px] md:text-[24px] sm:text-[20px] font-bold">
+                            Ключевые отличия рабочей визы:
+                        </h3>
+                        <ul className="ml-6 flex flex-col gap-2 list-disc pl-4">
+                            
+                            <li className="flex gap-2 items-start">
+                                <Image src="/check-0.png" alt="" width={16} height={16} className="w-4 h-4" style={{ transform: 'translate(0px, 4px)' }}/>
+                                <span>
+                                    Для работы выдается национальная долгосрочная виза типа D, а не краткосрочная шенгенская виза типа C.
+                                </span>
+                            </li>
+                            <li className="flex gap-2 items-start">
+                                <Image src="/check-0.png" alt="" width={16} height={16} className="w-4 h-4" style={{ transform: 'translate(0px, 4px)' }}/>
+                                <span>
+                                    Она четко подтверждает, что вы едете в страну именно для трудовой деятельности.
+                                </span>
+                            </li>
+                            <li className="flex gap-2 items-start">
+                                <Image src="/check-0.png" alt="" width={16} height={16} className="w-4 h-4" style={{ transform: 'translate(0px, 4px)' }}/>
+                                <span>
+                                    Процесс нужно начинать заблаговременно, находясь в Беларуси.
+                                </span>
+                            </li>
+                        </ul>
+                        <p>
+                            Понимание этих нюансов - первый шаг к успешному результату.
+                        </p>
+                    </div>
+                    <div className="w-[80%] mdd:w-full flex flex-col gap-4">
+                        <h2 className="text-[18px] md:text-[28px] sm:text-[22px] font-semibold">
+                            Популярные направления для трудоустройства
+                        </h2>
+                        <p>
+                            Белорусы чаще всего выбирают для работы страны Европейского союза. 
+                            Требования в каждой стране могут незначительно отличаться, но общий 
+                            принцип остается схожим, поэтому важно заранее уточнить все нюансы.
+                        </p>
+                        <p>
+                            Наиболее востребованные направления среди белорусов:
+                        </p>
+                        <ul className="ml-6 flex flex-col gap-2 list-disc pl-4">
+                            <li className="flex gap-2 items-start">
+                                <Image src="/check-0.png" alt="" width={16} height={16} className="w-4 h-4" style={{ transform: 'translate(0px, 4px)' }}/>
+                                <span>
+                                    <Link href="/shengenskie-vizy/viza-v-polshu" 
+                                    className="underline cursor-pointer hover:font-normal font-medium text-blue-500" 
+                                    target="_blank" rel="noopener noreferrer">Польша</Link>
+                                </span>
+                            </li>
+                            <li className="flex gap-2 items-start">
+                                <Image src="/check-0.png" alt="" width={16} height={16} className="w-4 h-4" style={{ transform: 'translate(0px, 4px)' }}/>
+                                <span>
+                                    <Link href="/shengenskie-vizy/viza-v-germaniyu" 
+                                    className="underline cursor-pointer hover:font-normal font-medium text-blue-500" 
+                                    target="_blank" rel="noopener noreferrer">Германия</Link>
+                                </span>
+                            </li>
+                            <li className="flex gap-2 items-start">
+                                <Image src="/check-0.png" alt="" width={16} height={16} className="w-4 h-4" style={{ transform: 'translate(0px, 4px)' }}/>
+                                <span>
+                                    <Link href="/shengenskie-vizy/viza-v-litvu" 
+                                    className="underline cursor-pointer hover:font-normal font-medium text-blue-500" 
+                                    target="_blank" rel="noopener noreferrer">Литва</Link>
+                                </span>
+                            </li>
+                            <li className="flex gap-2 items-start">
+                                <Image src="/check-0.png" alt="" width={16} height={16} className="w-4 h-4" style={{ transform: 'translate(0px, 4px)' }}/>
+                                <span>
+                                    <Link href="/shengenskie-vizy/viza-v-chehiyu" 
+                                    className="underline cursor-pointer hover:font-normal font-medium text-blue-500" 
+                                    target="_blank" rel="noopener noreferrer">Чехия</Link>
+                                </span>
+                            </li>
+                            <li className="flex gap-2 items-start">
+                                <Image src="/check-0.png" alt="" width={16} height={16} className="w-4 h-4" style={{ transform: 'translate(0px, 4px)' }}/>
+                                <span>
+                                    <Link href="/shengenskie-vizy/viza-v-italiyu" 
+                                    className="underline cursor-pointer hover:font-normal font-medium text-blue-500" 
+                                    target="_blank" rel="noopener noreferrer">Италия</Link>
+                                </span>
+                            </li>
+                            <li className="flex gap-2 items-start">
+                                <Image src="/check-0.png" alt="" width={16} height={16} className="w-4 h-4" style={{ transform: 'translate(0px, 4px)' }}/>
+                                <span>
+                                    <Link href="/shengenskie-vizy/viza-v-ispaniyu" 
+                                    className="underline cursor-pointer hover:font-normal font-medium text-blue-500" 
+                                    target="_blank" rel="noopener noreferrer">Испания</Link>
+                                </span>
+                            </li>
+                            <li className="flex gap-2 items-start">
+                                <Image src="/check-0.png" alt="" width={16} height={16} className="w-4 h-4" style={{ transform: 'translate(0px, 4px)' }}/>
+                                <span>
+                                    <Link href="/shengenskie-vizy/viza-v-latviyu"
+                                    className="underline cursor-pointer hover:font-normal font-medium text-blue-500" 
+                                    target="_blank" rel="noopener noreferrer">Латвия</Link>
+                                </span>
+                            </li>
+                        </ul>
+                        <p>
+                            Особенно часто наших клиентов интересует, <b>как получить</b> <Link href="/shengenskie-vizy/rabochaya-viza-v-polshu"
+                                    className="underline cursor-pointer hover:font-normal font-medium text-blue-500" 
+                                    target="_blank" rel="noopener noreferrer">рабочую визу в Польшу</Link> <b>или</b> <Link href="/shengenskie-vizy/rabochaya-viza-v-germaniyu"
+                                    className="underline cursor-pointer hover:font-normal font-medium text-blue-500" 
+                                    target="_blank" rel="noopener noreferrer">Германию</Link>. 
+                            Эти страны предлагают множество вакансий, достойные условия труда и упрощённые требования для граждан Беларуси. 
+                            Польша привлекает возможностью быстрого трудоустройства, а Германия - отсутствием верификации, высокими 
+                            зарплатами и стабильностью. Наши специалисты знают все актуальные требования для каждого направления и 
+                            помогут оформить визу без лишних хлопот.
+                        </p>
+                        </div>
+                        <div className="w-[80%] mdd:w-full flex flex-col gap-4">
+
+                        <h2 className="text-[18px] md:text-[28px] sm:text-[22px] font-semibold">
+                            Какие документы нужны для рабочей визы?
+                        </h2>
+                        <p>Это самый ответственный этап, где любая ошибка может привести к отказу. Точный список зависит от страны, но базовый пакет бумаг практически всегда одинаков.</p>
+                        <p>Вот что требуется:</p>
+                        <ul className="ml-6 flex flex-col gap-2 list-disc pl-4">
+                            <li className="flex gap-2 items-start">
+                                <Image src="/check-0.png" alt="" width={16} height={16} className="w-4 h-4" style={{ transform: 'translate(0px, 4px)' }}/>
+                                <span>
+                                    Действующий паспорт (не менее 6 месяцев до окончания, 2 свободные страницы)
+                                </span>
+                            </li>
+                            <li className="flex gap-2 items-start">
+                                <Image src="/check-0.png" alt="" width={16} height={16} className="w-4 h-4" style={{ transform: 'translate(0px, 4px)' }}/>
+                                <span>
+                                    Фотографии установленного образца
+                                </span>
+                            </li>
+                            <li className="flex gap-2 items-start">
+                                <Image src="/check-0.png" alt="" width={16} height={16} className="w-4 h-4" style={{ transform: 'translate(0px, 4px)' }}/>
+                                <span>
+                                    Заполненная анкета на рабочую визу
+                                </span>
+                            </li>
+                            <li className="flex gap-2 items-start">
+                                <Image src="/check-0.png" alt="" width={16} height={16} className="w-4 h-4" style={{ transform: 'translate(0px, 4px)' }}/>
+                                <span>
+                                    Приглашение от работодателя или подписанный трудовой договор
+                                </span>
+                            </li>
+                            <li className="flex gap-2 items-start">
+                                <Image src="/check-0.png" alt="" width={16} height={16} className="w-4 h-4" style={{ transform: 'translate(0px, 4px)' }}/>
+                                <span>
+                                    Медицинская страховка на срок действия визы
+                                </span>
+                            </li>
+                            <li className="flex gap-2 items-start">
+                                <Image src="/check-0.png" alt="" width={16} height={16} className="w-4 h-4" style={{ transform: 'translate(0px, 4px)' }}/>
+                                <span>
+                                    Подтверждение финансовой состоятельности или гарантия от работодателя
+                                </span>
+                            </li>
+                            <li className="flex gap-2 items-start">
+                                <Image src="/check-0.png" alt="" width={16} height={16} className="w-4 h-4" style={{ transform: 'translate(0px, 4px)' }}/>
+                                <span>
+                                    Документы об образовании и квалификации (дипломы, сертификаты)
+                                </span>
+                            </li>
+                            <li className="flex gap-2 items-start">
+                                <Image src="/check-0.png" alt="" width={16} height={16} className="w-4 h-4" style={{ transform: 'translate(0px, 4px)' }}/>
+                                <span>
+                                    Медицинская справка об отсутствии противопоказаний для работы
+                                </span>
+                            </li>
+                        </ul>
+                        <p>
+                            В некоторых случаях могут потребоваться и другие <b>документы для трудовой визы</b>: справка о несудимости, 
+                            подтверждение финансовой состоятельности или языковые сертификаты.
+                        </p>
+                    </div>
+                    <div className="w-[80%] mdd:w-full flex flex-col gap-4">
+                        <h2 className="text-[18px] md:text-[28px] sm:text-[22px] font-semibold">Как оформить визу: пошаговый процесс</h2>
+                        <p>
+                            Процедура получения визы может показаться сложной, но если разбить ее на этапы, все становится понятнее.
+                        </p>
+                        <h3 className="text-[16px] md:text-[24px] sm:text-[20px] font-bold">
+                           Этапы оформления:
+                        </h3>
+                        <p>1. <b>Консультация и подготовка</b> со специалистом. Первый и самый важный шаг, который дает понять, что нужно для оформления рабочей визы в вашем конкретном случае. На этом этапе мы анализируем вашу ситуацию и составляем точный список документов.</p>
+                        <p>2. <b>Сбор и проверка документов</b> - мы помогаем корректно заполнить анкету и проверяем каждый документ на соответствие требованиям консульства. Профессиональная подготовка сводит риск ошибок к нулю.</p>
+                        <p>3. <b>Запись на подачу.</b> Самостоятельно "поймать" свободное место в визовом центре бывает очень сложно. Мы берем эту задачу на себя и записываем вас на удобную дату.</p>
+                        <p>4. <b>Подача собранного пакета документов</b> в визовый центр или консульство.</p>
+                        <p>5. <b>Ожидание решения - </b>варьируется от 7 до 45 рабочих дней в зависимости от страны и загруженности консульства.</p>
+                        <p>6. <b>Получение паспорта</b>. Вы забираете паспорт с готовой визой и можете готовиться к поездке.</p>
+                        <p className={"italic text-[14px]"}>
+                            💡  <span className={"font-bold"}> Совет:</span> Если вы не знаете, как подать документы на рабочую визу или опасаетесь ошибок - 
+                            лучше доверить процесс<a className="underline cursor-pointer hover:font-normal font-medium text-blue-500" 
+                            target="_blank" rel="noopener noreferrer" onClick={openModal}> специалистам.</a>
+                        </p>
+                    </div> 
+                    <div className="w-[80%] mdd:w-full flex flex-col gap-4">
+                        <h2 className="text-[18px] md:text-[28px] sm:text-[22px] font-semibold">
+                            Почему могут отказать в визе?
+                        </h2>
+                        <p>
+                            <Link href="/poleznaya-informasia/top-5-oshibok-pri-podache-na-rabochiu-vizu"
+                                    className="underline cursor-pointer hover:font-normal font-medium text-blue-500" 
+                                    target="_blank" rel="noopener noreferrer">Отказ в рабочей визе</Link> - это неприятно, но не приговор. Важно понимать причины, чтобы избежать их в будущем.
+                        </p>
+                        <ul className="ml-6 flex flex-col gap-2 list-disc pl-4">
+                            <li className="flex gap-2 items-start">
+                                <Image src="/check-0.png" alt="" width={16} height={16} className="w-4 h-4" style={{ transform: 'translate(0px, 4px)' }}/>
+                                <span>
+                                    Ошибки в анкете или неполный пакет документов.
+                                </span>
+                            </li>
+                            <li className="flex gap-2 items-start">
+                                <Image src="/check-0.png" alt="" width={16} height={16} className="w-4 h-4" style={{ transform: 'translate(0px, 4px)' }}/>
+                                <span>
+                                    Сомнения в подлинности приглашения от работодателя.
+                                </span>
+                            </li>
+                            <li className="flex gap-2 items-start">
+                                <Image src="/check-0.png" alt="" width={16} height={16} className="w-4 h-4" style={{ transform: 'translate(0px, 4px)' }}/>
+                                <span>
+                                    Несоответствие вашей квалификации заявленной должности.
+                                </span>
+                            </li>
+                            <li className="flex gap-2 items-start">
+                                <Image src="/check-0.png" alt="" width={16} height={16} className="w-4 h-4" style={{ transform: 'translate(0px, 4px)' }}/>
+                                <span>
+                                    Предоставление ложной информации.
+                                </span>
+                            </li>
+                        </ul>
+                        <p>Хорошая новость: в отличие от туристических виз, прошлая визовая история почти не влияет на решение. Важнее правильно подготовленный пакет документов.</p>
+                    </div>
+                    <div className="w-[80%] mdd:w-full flex flex-col gap-4">
+                        <h2 className="text-[18px] md:text-[28px] sm:text-[22px] font-semibold">VISA VAM - ваш надежный партнер в Минске</h2>
+                        <p>
+                            Если не знаете, <b>как оформить рабочую визу</b> и какие документы подготовить, специалисты <b>VISA VAM</b> помогут на каждом этапе. Мы уже более 10 лет помогаем белорусам получать визы для работы, учебы и путешествий. Мы знаем, как важен результат, и делаем все, чтобы процесс прошел для вас без стресса.
+                        </p>
+                        <h3 className="text-[16px] md:text-[24px] sm:text-[20px] font-bold">
+                            Почему нам доверяют:
+                        </h3>
+                        <ul className="ml-6 flex flex-col gap-2 list-disc pl-4">
+                            <li className="flex gap-2 items-start">
+                                <Image src="/check-0.png" alt="" width={16} height={16} className="w-4 h-4" style={{ transform: 'translate(0px, 4px)' }}/>
+                                <span>
+                                    <b>Полное сопровождение.</b> Мы ведем вас за руку: от первой консультации и помощи в заполнении анкеты до успешной подачи документов.
+                                </span>
+                            </li>
+                            <li className="flex gap-2 items-start">
+                                <Image src="/check-0.png" alt="" width={16} height={16} className="w-4 h-4" style={{ transform: 'translate(0px, 4px)' }}/>
+                                <span>
+                                    <b>Индивидуальный подход.</b> Мы не работаем по шаблону. Для каждого клиента мы находим персональное решение, учитывая его ситуацию и цели.
+                                </span>
+                            </li>
+                            <li className="flex gap-2 items-start">
+                                <Image src="/check-0.png" alt="" width={16} height={16} className="w-4 h-4" style={{ transform: 'translate(0px, 4px)' }}/>
+                                <span>
+                                    <b>Экономия вашего времени.</b> Мы знаем все актуальные требования консульств и берем на себя самые сложные этапы, включая запись на подачу.
+                                </span>
+                            </li>
+                            <li className="flex gap-2 items-start">
+                                <Image src="/check-0.png" alt="" width={16} height={16} className="w-4 h-4" style={{ transform: 'translate(0px, 4px)' }}/>
+                                <span>
+                                    <b>Страховка от отказа.</b> Мы уверены в качестве своей работы, поэтому предлагаем уникальный оффер - страховку на возврат средств за услуги, которая защитит ваши интересы.
+                                </span>
+                            </li>
+                        </ul>
+                        <p>Мы поможем не только с проверкой, но и с подготовкой полного пакета документов, чтобы ваш путь к работе мечты был максимально простым и быстрым.</p>
+                    </div>
+                </div>
+
+                {/* Inject FAQ Schema */}
+                <script
+                    type="application/ld+json"
+                    dangerouslySetInnerHTML={{__html: JSON.stringify(faqSchema)}}
+                />
+
+                {/* Inject Article Schema */}
+                <script
+                    type="application/ld+json"
+                    dangerouslySetInnerHTML={{__html: JSON.stringify(articleSchema)}}
+                />
+
+                <Faq10/>
+                <div
+                    className="w-full relative flex flex-col gap-24 mdd:gap-12 px-[7%] pt-32 mdd:pt-20 text-[16px] mdd:text-[14px]">
+                    <div className="w-[80%] mdd:w-full flex flex-col gap-4">
+                        <h2 className="text-[18px] md:text-[28px] sm:text-[22px] font-semibold">Заключение</h2>
+                        <p>
+                            Не откладывайте свои планы на потом. Чтобы узнать, <b>как сделать рабочую визу</b> в страны Европы, свяжитесь с нашими менеджерами прямо сейчас! Позвоните нам, напишите в мессенджер или приходите в наш офис в Минске для консультации. 
+                        </p>
+                        <p>
+                            <a className="underline cursor-pointer hover:font-normal font-medium text-blue-500" 
+                            target="_blank" rel="noopener noreferrer" onClick={openModal}>Оставьте заявку на сайте</a> - мы ответим на все вопросы и поможем сделать первый шаг к вашей новой карьере. Начните путь к официальной работе за границей уже сегодня!
+                        </p>
+                    </div>
+                </div>
+                <div className="w-full relative flex flex-col px-[7%] pt-32 mdd:pt-20 text-[16px] mdd:text-[14px]">
+                    <p className="pb-[20px]">Читать следующую статью:</p>
+                    <Link href="/poleznaya-informasia/viza-v-kitay-dlya-belorusov" className="w-full relative">
+                    <div style={{
+                        boxShadow: '3px 2px 8px 1px #FFEEDB',
+                        backdropFilter: 'blur(200px)'
+                    }}
+                        className="flex flex-col md:flex-row md:gap-4 items-center bg-white border border-[#FFEEDB] rounded-lg shadow-md p-0 md:p-4 hover:shadow-lg transition-shadow">
+                        <Image src={"/topic9.png"} alt={"Полезная информация"} width={1000} height={1000}
+                               className={"w-[191px] h-[124px] dm:hidden rounded-none md:rounded-tl-none md:rounded-tr-none rounded-tl-lg rounded-tr-lg"}/>
+                        <Image src={"/topic9.png"} alt={"Полезная информация"} width={1000} height={1000}
+                               className={"md:hidden rounded-none md:rounded-tl-none md:rounded-tr-none rounded-tl-lg rounded-tr-lg"}/>
+                        <div className={"dm:p-4"}>
+                            <h3 className="text-base dm:font-medium md:text-xl text-black mb-1">
+                                Виза в Китай для белорусов в {year} году: когда можно ехать без визы, а когда она необходима
+                            </h3>
+                            <p className="dm:text-base text-[#595959] mb-4">
+                                Главный вопрос, который волнует каждого путешественника: нужна 
+                                ли виза в Китай для белорусов? Ответ не так однозначен, как кажется. 
+                                Благодаря соглашению между странами, во многих случаях можно поехать 
+                                в Китай без визы, но существуют важные правила и исключения.
+                            </p>
+                            <div className="flex justify-between items-center">
+                                <span
+                                    className="dm:text-base text-[#F86F00] font-medium"
+                                >
+                                    Читать полностью
+                                </span>
+                                <span className="text-[#FA9D3E] text-sm md:hidden">01.10.2025</span>
+                            </div>
+                        </div>
+                        <span className="text-[#FA9D3E] text-sm self-start dm:hidden">01.10.2025</span>
+                    </div>
+                </Link>
+                </div>
+                <Contacts/>
+            </div>
+        </div>
+    );
+}

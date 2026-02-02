@@ -1,0 +1,192 @@
+"use client"
+
+import React, { useState, useEffect, useRef } from "react";
+import { useModal } from '@/components/modalcontext';
+import Image from 'next/image';
+import { useSwipeable } from "react-swipeable";
+
+import {CarouselButton} from "./icons";
+
+const parseText = (text) => {
+    if (typeof text !== "string") return text || "";
+
+  const lines = text.split("\n");
+
+  return lines.map((line, lineIndex) => {
+    const parts = line.split(/(\*\*.*?\*\*|__.*?__|%%.*?%%|--.*?--)/g);
+
+    const parsedParts = parts.map((part, index) => {
+      if (part.startsWith("**") && part.endsWith("**")) {
+        return <b key={index}>{part.slice(2, -2)}</b>; // жирный
+      } else if (part.startsWith("__") && part.endsWith("__")) {
+        return <span key={index} className="underline">{part.slice(2, -2)}</span>; // подчёркнутый
+      } else if (part.startsWith("%%") && part.endsWith("%%")) {
+        return (
+          <span key={index} className="font-bold text-orange-500 text-lg">
+            {part.slice(2, -2)}
+          </span>
+        );
+        }else if (part.startsWith("--") && part.endsWith("--")) {
+            return (
+              <span key={index} className="text-[12px]">
+                {part.slice(2, -2)}
+              </span>
+            ); 
+          }
+      return part; // обычный текст
+    });
+
+    return (
+      <React.Fragment key={lineIndex}>
+        {parsedParts}
+        <br />
+      </React.Fragment>
+    );
+  });
+};
+
+const countries = [
+  { name: "Греция", price: "**450** бел. руб.", days: "**45** дней \n--срок рассмотрения--", link: "/shengenskie-vizy/viza-v-grecziyu", image: "/greece.png" },
+  { name: "Испания", price: "от **790** бел. руб.", days: "до **60** дней \n--срок рассмотрения--", link: "/shengenskie-vizy/viza-v-ispaniyu", image: "/spain.png" },
+  { name: "Италия", price: "от **350** бел. руб.", days: "до **14** дней \n--срок рассмотрения--", link: "/shengenskie-vizy/viza-v-italiyu", image: "/italy.png" },
+  { name: "Франция", price: "от **650** бел. руб.", days: "до **14** дней \n--срок рассмотрения--", link: "/shengenskie-vizy/viza-vo-francziyu", image: "/france.png" },
+];
+
+export default function CountryCards() {
+    const { openModal } = useModal();
+    const [currentIndex, setCurrentIndex] = useState(0);
+    const [isLgScreen, setIsLgScreen] = useState(false);
+    const intervalRef = useRef(null);
+
+    // Определяем размер экрана
+    useEffect(() => {
+        const handleResize = () => setIsLgScreen(window.innerWidth >= 1024);
+        handleResize();
+        window.addEventListener("resize", handleResize);
+        return () => window.removeEventListener("resize", handleResize);
+    }, []);
+
+    // Автопрокрутка на мобильных
+    useEffect(() => {
+        if (!isLgScreen) {
+            intervalRef.current = setInterval(() => {
+                setCurrentIndex((prev) => (prev < countries.length - 1 ? prev + 1 : 0));
+            }, 3000);
+        }
+        return () => {
+            if (intervalRef.current) clearInterval(intervalRef.current);
+        };
+    }, [isLgScreen]);
+
+    const stopAutoPlay = () => {
+        if (intervalRef.current) {
+            clearInterval(intervalRef.current);
+            intervalRef.current = null;
+        }
+    };
+
+    const handlePrev = () => {
+        stopAutoPlay();
+        setCurrentIndex((prev) => (prev > 0 ? prev - 1 : countries.length - 1));
+    };
+
+    const handleNext = () => {
+        stopAutoPlay();
+        setCurrentIndex((prev) => (prev < countries.length - 1 ? prev + 1 : 0));
+    };
+
+    const swipeHandlers = useSwipeable({
+        onSwipedLeft: handleNext,
+        onSwipedRight: handlePrev,
+        trackMouse: true,
+    });
+
+    const renderCard = (country) => (
+        <a
+            key={country.name}
+            href={country.link}
+            className="relative block rounded-2xl overflow-hidden shadow-lg transform transition-transform duration-300 hover:scale-105 cursor-pointer w-full"
+        >
+            <div
+                className="h-[300px] w-full bg-cover bg-center"
+                style={{ backgroundImage: `url(${country.image})` }}
+            ></div>
+            <div className="absolute inset-0 bg-black/40 flex flex-col justify-start text-white p-[20px]">
+                <h2 className="text-2xl font-bold 1024m:mb-[50px] mb-[65px]">{country.name}</h2>
+                <div className="flex mb-[10px] h-[80px] mb-auto">
+                    <div className="w-[50%]">
+                        <Image width={24} height={24} src="/walletwhite.svg" alt="" className="1024m:h-[50px] 1024m:w-[50px] h-[40px] w-[40px] mr-2 mb-[10px]" loading="lazy" />
+                        <p className="1024m:text-base text-sm">{parseText(country.price)}</p>
+                    </div>
+                    <div className="w-[50%] ml-[10px]">
+                        <Image width={24} height={24} src="/timewhite.svg" alt="" className="1024m:h-[50px] 1024m:w-[50px] h-[40px] w-[40px] mr-2 mb-[10px]" loading="lazy" />
+                        <p className="1024m:text-base text-sm mb-3">{parseText(country.days)}</p>
+                    </div>
+                </div>
+                <button
+                    onClick={(e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        stopAutoPlay();
+                        openModal();
+                    }}
+                    className="w-full bg-customBlue hover:bg-blue-600 text-white py-3 rounded-full shadow-[0_2px_4px_-2px_rgba(0,122,255,0.8)] active:scale-95 transition-transform duration-150 ease-in-out"
+                >
+                    Получить консультацию
+                </button>
+            </div>
+        </a>
+    );
+
+    if (isLgScreen) {
+        // Сетка для десктопа
+        return (
+            <div className="grid grid-cols-4 1024m:grid-cols-2 gap-6">
+                {countries.map((country, index) => renderCard(country))}
+            </div>
+        );
+    } else {
+        // Мобильный слайдер
+        return (
+            <div className="relative w-full overflow-hidden" {...swipeHandlers}>
+                <div
+                    className="flex transition-transform duration-700"
+                    style={{ transform: `translateX(calc(-${currentIndex * 100}% - ${currentIndex * 16}px))` }}
+                >
+                    {countries.map((country) => (
+                        <div key={country.name} className="flex-shrink-0 w-full mr-4">
+                            {renderCard(country)}
+                        </div>
+                    ))}
+                </div>
+
+                {/* Кнопки */}
+                <div className="flex justify-center items-center mt-4 space-x-4">
+                <button
+                    onClick={handlePrev}
+                    className={`text-4xl transition-all duration-300 ${
+                        currentIndex > 0 ? "text-[#F86F00] text-5xl" : "text-[#595959]"
+                    }`}
+                    aria-label="Назад"
+                >
+                    <CarouselButton color={"#F86F00"}/>
+                </button>
+                <button
+                    onClick={handleNext}
+                    className={`text-4xl transition-all duration-300 ${
+                        currentIndex < countries.length - 1 ? "text-[#F86F00] text-5xl" : "text-[#595959]"
+                    }`}
+                    aria-label="Вперед"
+                >
+                    <CarouselButton
+                        isRight={true}
+                        color={"#F86F00"}
+                    />
+                </button>
+                </div>
+            </div>
+        );
+    }
+}
+
+

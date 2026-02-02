@@ -1,0 +1,487 @@
+'use client'
+
+import Link from "next/link";
+import Image from "next/image";
+import {motion} from "framer-motion";
+import {usePathname} from "next/navigation";
+import {useModal} from "@/components/modalcontext";
+import {countries} from "@/data/countries";
+import Contacts from "@/components/contacts";
+import Breadcrumbs from "@/components/Breadcrumbs";
+import Faq8, {faqData} from "@/components/topic8/faq8";
+import NextArticleLink from "@/components/nextArtLink";
+
+const year = new Date().getFullYear();
+
+const BreadcrumbNav = ({pathname}) => (
+    <nav className="mb-4 mdd:text-xs flex items-baseline sm:space-x-2 mdd:space-x-0 text-gray-600 gap-2">
+        <Link href="/"
+              className="text-orange-500 hover:underline active:scale-95 transition-transform duration-150 ease-in-out">
+            Главная
+        </Link>
+        <Image src="/nav-icon.png" alt=">" width={8} height={8} className="w-2"/>
+        <Link
+            href="/poleznaya-informasia"
+            className={`text-orange-500 hover:underline ${pathname === "/poleznaya-informasia" ? "font-semibold text-gray-900 pointer-events-none w-full active:scale-95 transition-transform duration-150 ease-in-out" : ""}`}
+        >
+            Полезная информация
+        </Link>
+        <Image src="/nav-icon.png" alt="" width={8} height={8} className="w-2"/>
+        <span className="font-semibold text-gray-900 cursor-default">Документы для визы по приглашению</span>
+    </nav>
+);
+
+export default function OnasPage({breadcrumbs}) {
+    const pathname = usePathname();
+    const {openModal} = useModal();
+
+    // FAQ Schema
+    const faqSchema = {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": faqData.map((faq) => ({
+            "@type": "Question",
+            "name": `ВОПРОС: ${faq.question}`,
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": faq.answer
+            }
+        }))
+    };
+
+    // Article Schema
+    const articleSchema = {
+        "@context": "https://schema.org",
+        "@type": "NewsArticle",
+        "author": [{
+          "@type": "Person",
+          "name": "Елизавета Бокая",
+          "jobTitle": "руководитель отдела продаж"
+        }],
+        "headline": "Документы для визы по приглашению: полный гид для граждан Беларуси в 2025 году",
+        "alternativeHeadline": "Виза по приглашению — это удобный способ посетить родственников, друзей или партнеров за рубежом. В этой статье мы разберем, какие документы нужны для визы гостевой, документы для оформления визы по приглашению и особенности процесса.",
+        "datePublished": "2025-10-01T08:00:00+05:00",
+        "dateModified": "2025-10-01T21:33:00+05:00",
+        "articleBody": `
+Документы для визы по приглашению: полный гид для граждан Беларуси в 2025 году
+
+### Виза по приглашению — это удобный способ посетить родственников, друзей или партнеров за рубежом, особенно в странах Шенгенской зоны, таких как Польша, Литва или Германия. Для граждан Беларуси такая виза часто оформляется как гостевая (типа C), позволяющая пребывание до 90 дней в полугодие. В этой статье мы разберем, какие документы нужны для визы гостевой, документы для оформления визы по приглашению и особенности процесса. Мы учтем актуальные требования на 2025 год, основанные на официальных источниках визовых центров и посольств.
+### Если вы планируете поездку в Польшу, которая остается одним из самых популярных направлений для белорусов из-за географической близости и упрощенных процедур, обратите особое внимание на раздел о документах на польскую визу по приглашению. Помните, что требования могут варьироваться в зависимости от страны, но базовый набор схож для Шенгена.
+
+### Что такое виза по приглашению и когда она нужна
+
+### Виза по приглашению, или гостевая виза, выдается на основе официального приглашения от резидента или гражданина принимающей страны. Это подтверждает цель поездки — визит к родным или друзьям — и снижает риски отказа, если все документы для получения визы по приглашению собраны правильно. Для белорусов такая виза актуальна для поездок в ЕС, где действует соглашение об упрощенном визовом режиме, снижая консульский сбор до 35 евро.
+
+### Процесс начинается с подготовки пакета документов, записи в визовый центр (например, VFS Global для Польши) и подачи заявления. Срок рассмотрения — до 21 дня.
+
+### Основной список документов для визы по приглашению
+
+### Чтобы оформить визу по приглашению, какие документы нужны? Вот универсальный перечень для граждан Беларуси, применимый к большинству шенгенских стран. Все документы подаются в оригинале с копиями, а переводы на английский или язык страны (если требуется) должны быть нотариально заверены.
+
+- Паспорт. Действителен минимум 3 месяца после возвращения, выдан не ранее 10 лет назад, с как минимум одним чистым полным разворотом  для визы.
+- Фотографии. 2 шт. размером 3,5х4,5 см на светлом фоне, сделанные не ранее 6 месяцев.
+- Визовая анкета. Заполняется онлайн на сайте посольства или визового центра (например, e-konsulat для Польши). Укажите цель — "посещение родственников/друзей".
+- Медицинская страховка. Покрытие не менее 30 000 евро, действительна на весь период пребывания. Можно оформить в белорусских страховых компаниях.
+- Приглашение от принимающей стороны. Оригинал или нотариально заверенная копия. Для Польши — зарегистрированное в воеводстве, с указанием данных приглашающего, цели визита, сроков и финансовых гарантий. Если приглашающий покрывает расходы, приложите его справку о доходах и копию паспорта.
+- Доказательство финансовой состоятельности. Выписка с банковского счета (минимум 45 PLN или эквивалент на день пребывания), справка с работы с указанием зарплаты за последние 3–6 месяцев или спонсорское письмо, если расходы берет на себя приглашающий.
+- Документы, подтверждающие цель поездки. Свидетельство о родстве (если родственники), выкупленные билеты в обе стороны, подтверждение проживания (выкупленный отель или документы о недвижимости приглашающей стороны)
+- Копии внутренних документов. Страницы белорусского паспорта с личными данными.
+
+### Для несовершеннолетних добавьте нотариальное согласие родителей и свидетельство о рождении. Если вы подаете на гостевую визу документы для многократного въезда, предоставьте доказательства предыдущих поездок.
+
+### Собирая документы для визы по приглашению, проверьте актуальность на сайте визового центра — требования могут обновляться, как это произошло в 2025 году с введением дополнительных верификаций для белорусов.
+
+### Особенности документов для польской визы по приглашению
+
+### Польша — лидер по выдаче виз белорусам, и документы на польскую визу по приглашению в 2025 году включают те же базовые, но с нюансами. Подача через VFS Global в Минске, Бресте, Гродно или других городах. Для гостевой визы по приглашению родственников или друзей:
+
+- Приглашение должно быть на официальном бланке, с номером регистрации (получается приглашающим в Польше за 1–1,5 месяца).
+- Если родство, то доказательства (свидетельства о браке, рождении).
+- Финансовые гарантии. Если приглашающий — поляк или резидент, его выписка банка или справка о доходах.
+- Дополнительно. Оплаченная бронь отеля, если пребывание не только у приглашающего.
+
+### В 2025 году Польша ввела срочный порядок рассмотрения для близких родственников, но общий срок — до 21 дня. Успеваемость одобрения высока при полном пакете.
+
+### Совет:  Если процесс кажется сложным, подумайте о профессиональной поддержке. Компания VISA VAM, с более чем 10-летним опытом, предлагает персональный подход к подготовке документов для оформления визы по приглашению. Мы обеспечиваем 98% одобрения, сопровождая на всех этапах — от консультации до записи в центр. Без стресса: наши специалисты проверят ваш пакет, заполнят анкету и учтут нюансы. Мы сотрудничаем с туркомпаниями и помогаем с визами для командировок, учебы или переезда в Европу.
+
+### Советы по сбору и подаче документов
+
+- Начните с приглашения. Убедитесь, что оно актуально (действует 6 месяцев).
+- Проверьте финансы. Для Польши — минимум 500 PLN на человека за поездку.
+- Избегайте ошибок. Неполный пакет — главная причина отказа.
+- Для бизнеса или туризма. Если приглашение от партнера, добавьте коммерческие документы.
+
+### Совет:  Опыт показывает, что индивидуальные решения ключ к успеху. В VISA VAM мы находим такие подходы для каждого клиента, оформляя не только шенгенские, но и национальные визы в США, Великобританию или для воссоединения семьи. Наши консультации помогут адаптировать документы для получения визы по приглашению под вашу ситуацию.
+### Подготовка документов для получения визы по приглашению требует тщательности и от вас, и от ваших близких за границей. Следуя этому руководству, вы сможете грамотно подготовиться к подаче.
+### Если у вас остались вопросы по каким документам нужны для гостевой визы, свяжитесь с нами для бесплатной консультации. Мы поможем оформить визу в Европу, США или для переезда — с полным сопровождением и без лишних хлопот.
+`,
+        "about": [
+            { "@type": "Thing", "name": "шенгенская виза" },
+            { "@type": "Thing", "name": "виза для белорусов" },
+            { "@type": "Thing", "name": "2025 год" },
+            { "@type": "Thing", "name": "путешествия в Европу" },
+            { "@type": "Thing", "name": "Виза по приглашению" }
+        ],
+        "url": "https://visavampro.by/poleznaya-informasia/documenty-dlya-vizy-po-priglasheniu",
+        "publisher": {
+            "@type": "Organization",
+            "name": "VISA VAM",
+            "url": "https://visavampro.by/",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "/logo.png",
+                "width": 600,
+                "height": 60
+            }
+        },
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https://visavampro.by/poleznaya-informasia/documenty-dlya-vizy-po-priglasheniu"
+        }
+    };
+
+    return (
+        <div>
+            {breadcrumbs && <Breadcrumbs breadcrumbs={breadcrumbs}/>}
+
+            <div
+                className="w-full relative left-0 top-[200px] lg:top-[250px] mdd:top-[135px] flex flex-col sm:flex-col justify-between">
+                <div
+                    className="w-full text-left lg:text-left z-10 px-[7%] flex flex-col lg:gap-24 sm:gap-12 mdd:gap-12">
+                    <BreadcrumbNav pathname={pathname}/>
+                    <h1 className="dm:w-full ht:text-[40px] lg:text-[40px] md:text-[40px] sm:text-[34px] mdd:text-[28px] font-medium text-black">
+                        Документы для визы по приглашению: полный гид для граждан Беларуси в {year} году
+                    </h1>
+                </div>
+                <div className="w-full px-[7%] pt-[20px]">
+                    <p>01.10.2025</p>
+                    <p><b>Автор: </b>Елизавета Бокая</p>
+                </div>
+            </div>
+
+            <div className="relative mt-[200px] md:mt-[320px]">
+                {/* Banner Section */}
+                <div className="w-full relative">
+                    <Image
+                        src="/topic8.jpg"
+                        alt="О компании VisaVam"
+                        width={1600}
+                        height={1000}
+                        priority={true}
+                        className="w-full h-96 object-cover px-0 lg:px-[7%] md:px-[7%] mdd:hidden"
+                    />
+                    <Image
+                        src="/topic8.jpg"
+                        alt="О компании VisaVam"
+                        width={600}
+                        height={400}
+                        quality={80}
+                        priority={true}
+                        loading="eager"
+                        className="w-full object-cover px-0 lg:px-[7%] md:px-[7%] sm:hidden"
+                    />
+                </div>
+
+                {/* About Text Section */}
+                <div
+                    className="w-full relative flex flex-col gap-24 mdd:gap-12 px-[7%] pt-32 mdd:pt-20 text-[16px] mdd:text-[14px]">
+                    <div className="w-[80%] mdd:w-full flex flex-col gap-4">
+                        <p>
+                            <b>Виза по приглашению</b> — это удобный способ посетить родственников, 
+                            друзей или партнеров за рубежом, особенно в странах Шенгенской зоны, 
+                            таких как Польша, Литва или Германия. Для граждан Беларуси такая виза 
+                            часто оформляется как гостевая (типа C), позволяющая пребывание до 90 дней в 
+                            полугодие. В этой статье мы разберем, какие документы нужны для <b>визы гостевой</b>, 
+                            документы для оформления <b>визы по приглашению</b> и особенности процесса. Мы учтем 
+                            актуальные требования на 2025 год, основанные на официальных источниках визовых 
+                            центров и посольств.
+                        </p>
+                        <p>
+                            Если вы планируете поездку в Польшу, которая остается одним из самых популярных 
+                            направлений для белорусов из-за географической близости и упрощенных процедур, 
+                            обратите особое внимание на раздел о документах на польскую визу по приглашению. 
+                            Помните, что требования могут варьироваться в зависимости от страны, но базовый 
+                            набор схож для Шенгена.
+                        </p>
+                    </div>
+                    <div className="w-[80%] mdd:w-full flex flex-col gap-4">
+                        <h2 className="text-[18px] md:text-[28px] sm:text-[22px] font-semibold">
+                            Что такое виза по приглашению и когда она нужна
+                        </h2>
+                        <p>
+                            <b>Виза по приглашению</b>, или гостевая виза, выдается на основе 
+                            официального приглашения от резидента или гражданина принимающей 
+                            страны. Это подтверждает цель поездки — визит к родным или 
+                            друзьям — и снижает риски отказа, если все документы для получения 
+                            визы по приглашению собраны правильно. Для белорусов такая виза 
+                            актуальна для поездок в ЕС, где действует соглашение об упрощенном 
+                            визовом режиме, снижая консульский сбор до 35 евро.
+
+                        </p>
+                        <p>
+                            Процесс начинается с подготовки пакета документов, записи в визовый 
+                            центр (например, <Link href="https://visa.vfsglobal.com/blr/ru/pol/attend-centre" 
+                                    className="underline cursor-pointer hover:font-normal font-medium text-blue-500" 
+                                    target="_blank" rel="noopener noreferrer">VFS Global для Польши</Link>) и подачи заявления. 
+                                    Срок рассмотрения — до 21 дня.
+                        </p>
+                    </div>
+
+                    <div className="w-[80%] mdd:w-full flex flex-col gap-4">
+                        <h2 className="text-[18px] md:text-[28px] sm:text-[22px] font-semibold">
+                            Основной список документов для визы по приглашению
+                        </h2>
+                        <p>
+                            Чтобы <b>оформить визу по приглашению</b>, какие документы нужны? 
+                            Вот универсальный перечень для граждан Беларуси, применимый к 
+                            большинству шенгенских стран. Все документы подаются в оригинале с копиями, 
+                            а переводы на английский или язык страны (если требуется) должны быть нотариально заверены.
+                        </p>
+                        <ul className="ml-6 flex flex-col gap-2 list-disc pl-4">
+                            <li className="flex gap-2 items-start">
+                                <Image src="/check-0.png" alt="" width={16} height={16} className="w-4 h-4" style={{ transform: 'translate(0px, 4px)' }}/>
+                                <span>
+                                    <b>Паспорт.</b> Действителен минимум 3 месяца после возвращения, выдан не ранее 
+                                    10 лет назад, с как минимум одним чистым полным разворотом  для визы.
+                                </span>
+                            </li>
+                            <li className="flex gap-2 items-start">
+                                <Image src="/check-0.png" alt="" width={16} height={16} className="w-4 h-4" style={{ transform: 'translate(0px, 4px)' }}/>
+                                <span>
+                                    <b>Фотографии.</b> 2 шт. размером 3,5х4,5 см на светлом фоне, сделанные не ранее 6 месяцев.
+                                </span>
+                            </li>
+                            <li className="flex gap-2 items-start">
+                                <Image src="/check-0.png" alt="" width={16} height={16} className="w-4 h-4" style={{ transform: 'translate(0px, 4px)' }}/>
+                                <span>
+                                    <b>Визовая анкета.</b> Заполняется онлайн на сайте посольства или 
+                                    визового центра (например, e-konsulat для Польши). Укажите цель — "посещение родственников/друзей".
+                                </span>
+                            </li>
+                            <li className="flex gap-2 items-start">
+                                <Image src="/check-0.png" alt="" width={16} height={16} className="w-4 h-4" style={{ transform: 'translate(0px, 4px)' }}/>
+                                <span>
+                                    <b>Фотографии:</b> 2 цветные фотографии установленного образца 
+                                    (обычно 3,5 х 4,5 см на светлом фоне), сделанные не ранее чем за 6 месяцев до подачи.
+                                </span>
+                            </li>
+                            <li className="flex gap-2 items-start">
+                                <Image src="/check-0.png" alt="" width={16} height={16} className="w-4 h-4" style={{ transform: 'translate(0px, 4px)' }}/>
+                                <span>
+                                    <b>Медицинская страховка.</b> Покрытие не менее 30 000 евро, действительна на весь период пребывания. 
+                                    Можно оформить в белорусских страховых компаниях.
+                                </span>
+                            </li>
+                            <li className="flex gap-2 items-start">
+                                <Image src="/check-0.png" alt="" width={16} height={16} className="w-4 h-4" style={{ transform: 'translate(0px, 4px)' }}/>
+                                <span>
+                                    <b>Приглашение от принимающей стороны.</b> Оригинал или нотариально заверенная копия. 
+                                    Для Польши — зарегистрированное в воеводстве, с указанием данных приглашающего, цели визита, 
+                                    сроков и финансовых гарантий. Если приглашающий покрывает расходы, приложите его справку о 
+                                    доходах и копию паспорта.
+                                </span>
+                            </li>
+                            <li className="flex gap-2 items-start">
+                                <Image src="/check-0.png" alt="" width={16} height={16} className="w-4 h-4" style={{ transform: 'translate(0px, 4px)' }}/>
+                                <span>
+                                    <b>Доказательство финансовой состоятельности.</b> Выписка с банковского счета 
+                                    (минимум 45 PLN или эквивалент на день пребывания), справка с работы с указанием зарплаты за последние 
+                                    3–6 месяцев или спонсорское письмо, если расходы берет на себя приглашающий.
+                                </span>
+                            </li>
+                            <li className="flex gap-2 items-start">
+                                <Image src="/check-0.png" alt="" width={16} height={16} className="w-4 h-4" style={{ transform: 'translate(0px, 4px)' }}/>
+                                <span>
+                                    <b>Документы, подтверждающие цель поездки.</b> Свидетельство о родстве (если родственники), 
+                                    выкупленные билеты в обе стороны, подтверждение проживания (выкупленный отель или документы о 
+                                    недвижимости приглашающей стороны)
+                                </span>
+                            </li>
+                            <li className="flex gap-2 items-start">
+                                <Image src="/check-0.png" alt="" width={16} height={16} className="w-4 h-4" style={{ transform: 'translate(0px, 4px)' }}/>
+                                <span>
+                                    <b>Копии внутренних документов.</b> Страницы белорусского паспорта с личными данными.
+                                </span>
+                            </li>
+                        </ul>
+                        <p>
+                            Для несовершеннолетних добавьте нотариальное согласие родителей и свидетельство о рождении. 
+                            Если вы подаете на <b>гостевую визу</b> документы для многократного въезда, предоставьте доказательства 
+                            предыдущих поездок.
+                        </p>
+                        <p>
+                            Собирая <b>документы для визы по приглашению</b>, проверьте актуальность на сайте визового центра — 
+                            требования могут обновляться, как это произошло в 2025 году с введением дополнительных верификаций 
+                            для белорусов.
+                        </p>
+
+                        <h3 className="text-[16px] md:text-[24px] sm:text-[20px] font-bold">
+                            Особенности документов для польской визы по приглашению
+                        </h3>
+                        <p>
+                            <Link href="/shengenskie-vizy/viza-v-polshu" 
+                                    className="underline cursor-pointer hover:font-normal font-medium text-blue-500" 
+                                    target="_blank" rel="noopener noreferrer">Польша</Link> — лидер по <b>выдаче виз белорусам</b>, и документы на польскую визу по приглашению в 2025 
+                            году включают те же базовые, но с нюансами. Подача через VFS Global в Минске, Бресте, Гродно 
+                            или других городах. Для <Link href="/shengenskie-vizy/gostevaya-polskaya-viza" 
+                                    className="underline cursor-pointer hover:font-normal font-medium text-blue-500" 
+                                    target="_blank" rel="noopener noreferrer">гостевой визы</Link> по приглашению родственников или друзей:
+                        </p>
+                        <ul className="ml-6 flex flex-col gap-2 list-disc pl-4">
+                            <li className="flex gap-2 items-start">
+                                <Image src="/check-0.png" alt="" width={16} height={16} className="w-4 h-4" style={{ transform: 'translate(0px, 4px)' }}/>
+                                <span>
+                                    Приглашение должно быть на официальном бланке, с номером регистрации (получается приглашающим в Польше за 1–1,5 месяца).
+                                </span>
+                            </li>
+                            <li className="flex gap-2 items-start">
+                                <Image src="/check-0.png" alt="" width={16} height={16} className="w-4 h-4" style={{ transform: 'translate(0px, 4px)' }}/>
+                                <span>
+                                    Если родство, то доказательства (свидетельства о браке, рождении).
+                                </span>
+                            </li>
+                            <li className="flex gap-2 items-start">
+                                <Image src="/check-0.png" alt="" width={16} height={16} className="w-4 h-4" style={{ transform: 'translate(0px, 4px)' }}/>
+                                <span>
+                                    Финансовые гарантии. Если приглашающий — поляк или резидент, его выписка банка или справка о доходах.
+                                </span>
+                            </li>
+                            <li className="flex gap-2 items-start">
+                                <Image src="/check-0.png" alt="" width={16} height={16} className="w-4 h-4" style={{ transform: 'translate(0px, 4px)' }}/>
+                                <span>
+                                    Дополнительно. Оплаченная бронь отеля, если пребывание не только у приглашающего.
+                                </span>
+                            </li>
+                        </ul>
+                        <p>
+                            В 2025 году Польша ввела срочный порядок рассмотрения для близких родственников, но общий срок — до 21 дня. Успеваемость одобрения высока при полном пакете.
+                        </p>
+                        <p className={"italic text-[14px]"}>
+                            💡  <span className={"font-bold"}> Совет:</span> Если процесс кажется сложным, подумайте о 
+                                    профессиональной поддержке. <a className="underline cursor-pointer hover:font-normal font-medium text-blue-500" 
+                            target="_blank" rel="noopener noreferrer" onClick={openModal}>Компания VISA VAM</a>, с более чем 10-летним опытом, 
+                                    предлагает персональный подход к подготовке документов для оформления визы по приглашению. 
+                                    Мы обеспечиваем 98% одобрения, сопровождая на всех этапах — от консультации до записи в центр. 
+                                    Без стресса: наши специалисты проверят ваш пакет, заполнят анкету и учтут нюансы. Мы сотрудничаем 
+                                    с туркомпаниями и помогаем с визами для командировок, учебы или переезда в Европу.
+                        </p>
+
+                        <h2 className="text-[18px] md:text-[28px] sm:text-[22px] font-semibold">
+                            Советы по сбору и подаче документов
+                        </h2>
+                        <ul className="ml-6 flex flex-col gap-2 list-disc pl-4">
+                            <li className="flex gap-2 items-start">
+                                <Image src="/check-0.png" alt="" width={16} height={16} className="w-4 h-4" style={{ transform: 'translate(0px, 4px)' }}/>
+                                <span>
+                                    Начните с приглашения. Убедитесь, что оно актуально (действует 6 месяцев).
+                                </span>
+                            </li>
+                            <li className="flex gap-2 items-start">
+                                <Image src="/check-0.png" alt="" width={16} height={16} className="w-4 h-4" style={{ transform: 'translate(0px, 4px)' }}/>
+                                <span>
+                                    Проверьте финансы. Для Польши — минимум 500 PLN на человека за поездку.
+                                </span>
+                            </li>
+                            <li className="flex gap-2 items-start">
+                                <Image src="/check-0.png" alt="" width={16} height={16} className="w-4 h-4" style={{ transform: 'translate(0px, 4px)' }}/>
+                                <span>
+                                    Избегайте ошибок. Неполный пакет — главная причина отказа.
+                                </span>
+                            </li>
+                            <li className="flex gap-2 items-start">
+                                <Image src="/check-0.png" alt="" width={16} height={16} className="w-4 h-4" style={{ transform: 'translate(0px, 4px)' }}/>
+                                <span>
+                                    Для <Link href="/shengenskie-vizy/delovaya-viza-v-polshu" 
+                                    className="underline cursor-pointer hover:font-normal font-medium text-blue-500" 
+                                    target="_blank" rel="noopener noreferrer">бизнеса</Link> или туризма. Если приглашение от 
+                                    партнера, добавьте коммерческие документы.
+                                </span>
+                            </li>
+                        </ul>
+                        <p className={"italic text-[14px]"}>
+                            💡  <span className={"font-bold"}> Совет:</span> Опыт показывает, 
+                                    что индивидуальные решения ключ к успеху. В VISA VAM мы находим 
+                                    такие подходы для каждого клиента, оформляя не только <Link href="/shengenskie-vizy" 
+                                    className="underline cursor-pointer hover:font-normal font-medium text-blue-500" 
+                                    target="_blank" rel="noopener noreferrer">шенгенские</Link>, 
+                                    но и национальные визы в <Link href="/viza-v-ssha" 
+                                    className="underline cursor-pointer hover:font-normal font-medium text-blue-500" 
+                                    target="_blank" rel="noopener noreferrer">США</Link>, <Link href="/viza-v-velikobritaniyu" 
+                                    className="underline cursor-pointer hover:font-normal font-medium text-blue-500" 
+                                    target="_blank" rel="noopener noreferrer">Великобританию</Link> или для воссоединения семьи. 
+                                    Наши консультации помогут адаптировать документы для получения визы по 
+                                    приглашению под вашу ситуацию.
+                        </p>
+
+                    </div>
+                </div>
+
+                {/* Inject FAQ Schema */}
+                <script
+                    type="application/ld+json"
+                    dangerouslySetInnerHTML={{__html: JSON.stringify(faqSchema)}}
+                />
+
+                {/* Inject Article Schema */}
+                <script
+                    type="application/ld+json"
+                    dangerouslySetInnerHTML={{__html: JSON.stringify(articleSchema)}}
+                />
+
+                <Faq8/>
+                <div
+                    className="w-full relative flex flex-col gap-24 mdd:gap-12 px-[7%] pt-32 mdd:pt-20 text-[16px] mdd:text-[14px]">
+                    <div className="w-[80%] mdd:w-full flex flex-col gap-4">
+                        <h2 className="text-[18px] md:text-[28px] sm:text-[22px] font-semibold">Заключение</h2>
+                        <p>
+                            Подготовка <b>документов для получения визы по приглашению</b> требует тщательности и от вас, 
+                            и от ваших близких за границей. Следуя этому руководству, вы сможете грамотно подготовиться к подаче.
+                        </p>
+                        <p>
+                            Если у вас остались вопросы по каким документам нужны для гостевой визы, <a className="underline cursor-pointer hover:font-normal font-medium text-blue-500" 
+                            target="_blank" rel="noopener noreferrer" onClick={openModal}>свяжитесь с нами</a> для бесплатной консультации.
+                            Мы поможем оформить визу в <Link href="/shengenskie-vizy" 
+                                    className="underline cursor-pointer hover:font-normal font-medium text-blue-500" 
+                                    target="_blank" rel="noopener noreferrer">Европу</Link>, <b>США</b> или для 
+                                    переезда — с полным сопровождением и без лишних хлопот.
+                        </p>
+                    </div>
+                </div>
+                <div className="w-full relative flex flex-col px-[7%] pt-32 mdd:pt-20 text-[16px] mdd:text-[14px]">
+                    <p className="pb-[20px]">Читать следующую статью:</p>
+                    <Link href="/poleznaya-informasia/viza-dlya-detey" className="w-full relative">
+                    <div style={{
+                        boxShadow: '3px 2px 8px 1px #FFEEDB',
+                        backdropFilter: 'blur(200px)'
+                    }}
+                        className="flex flex-col md:flex-row md:gap-4 items-center bg-white border border-[#FFEEDB] rounded-lg shadow-md p-0 md:p-4 hover:shadow-lg transition-shadow">
+                        <Image src={"/topic7.jpg"} alt={"Полезная информация"} width={1000} height={1000}
+                               className={"w-[191px] h-[124px] dm:hidden rounded-none md:rounded-tl-none md:rounded-tr-none rounded-tl-lg rounded-tr-lg"}/>
+                        <Image src={"/topic7.jpg"} alt={"Полезная информация"} width={1000} height={1000}
+                               className={"md:hidden rounded-none md:rounded-tl-none md:rounded-tr-none rounded-tl-lg rounded-tr-lg"}/>
+                        <div className={"dm:p-4"}>
+                            <h3 className="text-base dm:font-medium md:text-xl text-black mb-1">
+                                Виза для ребенка: полное руководство по документам и правилам в {year} году 
+                            </h3>
+                            <p className="dm:text-base text-[#595959] mb-4">
+                                Оформление визы для ребенка — это процесс, который требует особого внимания к деталям. 
+                                В отличие от “взрослой” визы, здесь есть свои нюансы и расширенный список документов.
+                            </p>
+                            <div className="flex justify-between items-center">
+                                <span
+                                    className="dm:text-base text-[#F86F00] font-medium"
+                                >
+                                    Читать полностью
+                                </span>
+                                <span className="text-[#FA9D3E] text-sm md:hidden">01.10.2025</span>
+                            </div>
+                        </div>
+                        <span className="text-[#FA9D3E] text-sm self-start dm:hidden">01.10.2025</span>
+                    </div>
+                </Link>
+                </div>
+                <Contacts/>
+            </div>
+        </div>
+    );
+}

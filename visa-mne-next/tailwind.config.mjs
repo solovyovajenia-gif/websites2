@@ -1,0 +1,32 @@
+/** @type {import('tailwindcss').Config} */
+export default {
+  content: [
+    "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
+  ],
+  theme: {
+    extend: {
+      colors: {
+        background: "var(--background)",
+        foreground: "var(--foreground)",
+      },
+      screens: {
+        "small": {max: "385px"},
+        "dm": { max: "768px" },
+        "mdd": { max: "640px" },
+        "mddd": { max: "600px" },
+        "ht": { min: "1500px" },
+        "dr": { max: "400px" },
+        "drm": { min: "401px" },
+        "br": { max: "1280px" },
+        "1024m": { max: "1024px" },
+        "1400m": {max: "1400px"},
+        "mxl": {min: "1024"},
+        "xl": {min: "1280px"},
+        "2xl": {min: "1840px"},
+      },
+    },
+  },
+  plugins: [],
+};

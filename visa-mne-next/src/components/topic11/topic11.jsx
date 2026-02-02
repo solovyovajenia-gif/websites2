@@ -1,0 +1,449 @@
+'use client'
+
+import Link from "next/link";
+import Image from "next/image";
+import {usePathname} from "next/navigation";
+import {useModal} from "@/components/modalcontext";
+import Contacts from "@/components/contacts";
+import Breadcrumbs from "@/components/Breadcrumbs";
+import Faq11, {faqData} from "@/components/topic11/faq11";
+
+const year = new Date().getFullYear();
+
+const BreadcrumbNav = ({pathname}) => (
+    <nav className="mb-4 mdd:text-xs flex items-baseline sm:space-x-2 mdd:space-x-0 text-gray-600 gap-2">
+        <Link href="/"
+              className="text-orange-500 hover:underline active:scale-95 transition-transform duration-150 ease-in-out">
+            Главная
+        </Link>
+        <Image src="/nav-icon.png" alt=">" width={8} height={8} className="w-2"/>
+        <Link
+            href="/poleznaya-informasia"
+            className={`text-orange-500 hover:underline ${pathname === "/poleznaya-informasia" ? "font-semibold text-gray-900 pointer-events-none w-full active:scale-95 transition-transform duration-150 ease-in-out" : ""}`}
+        >
+            Полезная информация
+        </Link>
+        <Image src="/nav-icon.png" alt="" width={8} height={8} className="w-2"/>
+        <span className="font-semibold text-gray-900 cursor-default">Как получить туристическую визу</span>
+    </nav>
+);
+
+export default function OnasPage({breadcrumbs}) {
+    const pathname = usePathname();
+    const {openModal} = useModal();
+
+    // FAQ Schema
+    const faqSchema = {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": faqData.map((faq) => ({
+            "@type": "Question",
+            "name": `ВОПРОС: ${faq.question}`,
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": faq.answer
+            }
+        }))
+    };
+
+    // Article Schema
+    const articleSchema = {
+        "@context": "https://schema.org",
+        "@type": "NewsArticle",
+        "author": [{
+          "@type": "Person",
+          "name": "Елизавета Бокая",
+          "jobTitle": "руководитель отдела продаж"
+        }],
+        "headline": "Как получить рабочую визу: документы, этапы и советы для белорусов | VISA VAM",
+        "alternativeHeadline": "Узнайте, как получить рабочую визу в Европу: какие документы нужны, как подать заявление и избежать отказа. Пошаговая инструкция от VISA VAM - помощь в оформлении визы по всей Беларуси, 10 лет опыта, страховка от отказа.",
+        "datePublished": "2025-11-14T08:00:00+05:00",
+        "dateModified": "2025-11-14T21:33:00+05:00",
+        "articleBody": `
+Как получить туристическую визу в 2025: полное руководство по оформлению
+Планируете долгожданный отпуск, поездку к друзьям или просто мечтаете увидеть мир? Для большинства зарубежных направлений первым шагом к мечте становится получение туристической визы. Этот процесс, особенно для новичков, часто кажется сложным и запутанным, вызывая массу вопросов: как сделать визу правильно, какие документы нужны, как проходит оформление и что делать, чтобы не получить отказ?
+Мысль о том, что одна ошибка в анкете может перечеркнуть все планы, заставляет многих нервничать. Как делается виза? Нужно ли открыть ее заранее? Сколько ждать?
+В этой статье мы подробно разберем, как оформить туристическую визу самостоятельно, и дадим пошаговую инструкцию, которая поможет вам избежать распространенных ошибок и сэкономить время.
+(H2) Что такое туристическая виза и зачем она нужна?
+Туристическая виза - это официальный документ (обычно вклеивается в паспорт или выдается в электронном виде), который дает вам право на въезд и временное пребывание на территории иностранного государства с четко определенной целью - туризм. Это может включать осмотр достопримечательностей, отдых, посещение культурных мероприятий или краткосрочные визиты к друзьям или родственникам.
+Основная цель, с которой консульства выдают туристические визы - убедиться, что вы:
+Не намерены нелегально иммигрировать.
+Имеете достаточные финансовые средства для покрытия расходов на поездку.
+Планируете вернуться на родину по окончании поездки.
+Без этого документа въезд во многие страны Шенгенской зоны (Польша, Италия, Франция), а также в США, Великобританию, Канаду и многие азиатские страны будет для вас закрыт. Оформление визы - это обязательный этап планирования вашего путешествия.
+💡 Важный совет: Не хотите тратить недели на изучение требований консульств, стоять в очередях и бояться отказа из-за случайной ошибки в анкете? Процесс оформления документов может быть утомительным. Компания "VISA VAM" предлагает полное сопровождение на всех этапах получения визы. Мы более 8 лет на рынке и знаем все тонкости работы с консульствами. С нами 97% одобренных виз с первой подачи и полное отсутствие стресса для вас. Доверьте оформление визы профессионалам - свяжитесь с нами для бесплатной 15-минутной консультации!
+(H2) Как получить туристическую визу: пошаговое руководство
+Процесс оформления может незначительно отличаться в зависимости от страны, в которую вы собираетесь, но базовый алгоритм, как открыть визу, всегда остается похожим. Мы разбили его на 6 простых шагов.
+Шаг 1. Выбор страны и изучение точных требований. Прежде всего, определитесь с направлением. Зайдите на официальный сайт консульства или посольства выбранной страны. Именно там находится самая актуальная информация. Уточните:
+Нужна ли вам виза в принципе (для многих стран действует безвизовый режим).
+Какой тип туристической визы вам нужен (однократная, многократная).
+Полный список необходимых документов.
+Шаг 2. Сбор необходимых документов. Это самый ответственный этап. Любая неточность может привести к отказу. Стандартный пакет документов на туристическую визу почти всегда включает:
+Паспорт. Действующий еще как минимум 3-6 месяцев после предполагаемой даты выезда из страны. В нем должно быть достаточно пустых страниц.
+Визовая анкета (заявление). Заполняется онлайн на сайте визового центра или консульства. Будьте предельно внимательны, не допускайте ошибок и опечаток.
+Фотографии. Обычно 2 цветные фотографии установленного образца (размер, фон и требования к лицу уточняйте на сайте).
+Финансовые гарантии. Справка из банка о состоянии счета или выписка о движении средств за последние 3-6 месяцев. Сумма на счету должна покрывать ваши расходы на поездку (каждая страна устанавливает свой "дневной минимум").
+Подтверждение занятости. Справка с места работы на фирменном бланке, где указана ваша должность, оклад и то, что на время поездки вам предоставляется отпуск с сохранением рабочего места. Для ИП - свидетельство о регистрации и налоговая декларация. Для студентов - справка из вуза.
+Подтверждение проживания: Бронь отеля или апартаментов на весь срок пребывания (распечатка с Booking.com или аналогичных сервисов).
+Билеты. Бронь авиабилетов в обе стороны (иногда достаточно только брони, а не выкупленных билетов).
+Медицинская страховка. Полис, покрывающий весь срок поездки и действующий на территории страны (например, для Шенгена - с покрытием от 30 000 евро).
+Шаг 3. Заполнение визовой анкеты. Этот документ - ваше "лицо" для консула. Заполняйте анкету максимально честно, корректно и без ошибок. Вся информация должна совпадать с данными в предоставленных документах.
+Шаг 4. Оплата сборов и запись на подачу. После сбора документов необходимо оплатить консульский и сервисный сборы. Затем нужно записаться на подачу документов в консульство или, что бывает чаще, в аккредитованный визовый центр (VFS Global, BLS, TLScontact и т.д.).
+Шаг 5. Подача документов и биометрия. В назначенный день вы лично приходите в визовый центр, подаете собранный пакет документов, и у вас снимают биометрические данные (отпечатки пальцев и цифровое фото).
+Шаг 6. Ожидание решения. Самый волнительный этап. Сроки рассмотрения варьируются. Как правило, виза делается от 5 до 15 рабочих дней, но в "высокий сезон" или для "сложных" стран (как США) процесс может занять несколько недель или даже месяцев. Отслеживать статус паспорта обычно можно онлайн на сайте визового центра.
+Заключение
+Получение туристической визы - процесс, требующий внимательности, времени и аккуратности. Это не так страшно, как кажется на первый взгляд, но и пренебрегать деталями нельзя. Следуя нашей пошаговой инструкции, вы значительно повысите свои шансы на успешное оформление документов с первого раза.
+А для стопроцентной уверенности и экономии своих нервов - обращайтесь к экспертам компании "VISA VAM". Мы возьмем на себя всю рутину по оформлению визы.
+👉 Оставьте заявку на нашем сайте - и начните свое путешествие без стресса и хлопот!
+
+`,
+        "about": [
+            { "@type": "Thing", "name": "рабочая виза" },
+            { "@type": "Thing", "name": "виза для белорусов" },
+            { "@type": "Thing", "name": "2025 год" },
+            { "@type": "Thing", "name": "путешествия в Европу" },
+            { "@type": "Thing", "name": "работа в Европе" }
+        ],
+        "url": "https://visavampro.by/poleznaya-informasia/kak-polochit-turisticheskyu-visy",
+        "publisher": {
+            "@type": "Organization",
+            "name": "VISA VAM",
+            "url": "https://visavampro.by/",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "/logo.png",
+                "width": 600,
+                "height": 60
+            }
+        },
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https://visavampro.by/poleznaya-informasia/kak-polochit-turisticheskyu-visy"
+        }
+    };
+
+    return (
+        <div>
+            {breadcrumbs && <Breadcrumbs breadcrumbs={breadcrumbs}/>}
+
+            <div
+                className="w-full relative left-0 top-[200px] lg:top-[250px] mdd:top-[135px] flex flex-col sm:flex-col justify-between">
+                <div
+                    className="w-full text-left lg:text-left z-10 px-[7%] flex flex-col lg:gap-24 sm:gap-12 mdd:gap-12">
+                    <BreadcrumbNav pathname={pathname}/>
+                    <h1 className="dm:w-full ht:text-[40px] lg:text-[40px] md:text-[40px] sm:text-[34px] mdd:text-[28px] font-medium text-black">
+                            Как получить туристическую визу в {year}: полное руководство по оформлению
+                    </h1>
+                </div>
+                <div className="w-full px-[7%] pt-[20px]">
+                    <p>14.11.2025</p>
+                    <p><b>Автор: </b>Елизавета Бокая</p>
+                </div>
+            </div>
+
+            <div className="relative mt-[200px] md:mt-[320px]">
+                {/* Banner Section */}
+                <div className="w-full relative">
+                    <Image
+                        src="/topic11.webp"
+                        alt="О компании VisaVam"
+                        width={1600}
+                        height={1000}
+                        priority={true}
+                        className="w-full h-96 object-cover object-[50%_20%] px-0 lg:px-[7%] md:px-[7%] mdd:hidden"
+                    />
+                    <Image
+                        src="/topic11.webp"
+                        alt="О компании VisaVam"
+                        width={600}
+                        height={400}
+                        quality={80}
+                        priority={true}
+                        loading="eager"
+                        className="w-full object-cover px-0 lg:px-[7%] md:px-[7%] sm:hidden"
+                    />
+                </div>
+
+                {/* About Text Section */}
+                <div
+                    className="w-full relative flex flex-col gap-24 mdd:gap-12 px-[7%] pt-32 mdd:pt-20 text-[16px] mdd:text-[14px]">
+                    <div className="w-[80%] mdd:w-full flex flex-col gap-4">
+                        <p>
+                            Планируете долгожданный отпуск, поездку к друзьям или просто мечтаете увидеть 
+                            мир? Для большинства зарубежных направлений первым шагом к мечте становится 
+                            <b> получение туристической визы</b>. Этот процесс, особенно для новичков, часто 
+                            кажется сложным и запутанным, вызывая массу вопросов: <b>как сделать визу</b> правильно, 
+                            какие <b>документы</b> нужны, <b>как</b> проходит <b>оформление</b> и что делать, чтобы не <b>получить</b> отказ?
+                        </p>
+                        <p>
+                            Мысль о том, что одна ошибка в анкете может перечеркнуть все планы, 
+                            заставляет многих нервничать. <b>Как делается виза</b>? Нужно ли <b>открыть </b>
+                            ее заранее? Сколько ждать?
+                        </p>
+                        <p>
+                            В этой статье мы подробно разберем, <b>как оформить туристическую визу </b>
+                            самостоятельно, и дадим пошаговую инструкцию, которая поможет вам 
+                            избежать распространенных ошибок и сэкономить время.
+                        </p>
+                    </div>
+
+                    <div className="w-[80%] mdd:w-full flex flex-col gap-4">
+                        <h2 className="text-[18px] md:text-[28px] sm:text-[22px] font-semibold">
+                            Что такое туристическая виза и зачем она нужна?
+                        </h2>
+                        <p>
+                            <b>Туристическая виза</b> - это официальный документ 
+                            (обычно вклеивается в паспорт или выдается 
+                            в электронном виде), который дает вам право 
+                            на въезд и временное пребывание на территории 
+                            иностранного государства с четко определенной 
+                            целью - туризм. Это может включать осмотр 
+                            достопримечательностей, отдых, посещение 
+                            культурных мероприятий или краткосрочные визиты 
+                            к друзьям или родственникам.
+                        </p>
+                        <p>
+                            Основная цель, с которой консульства 
+                            выдают <b>туристические визы</b> - убедиться, что вы:
+                        </p>
+                        <ul className="ml-6 flex flex-col gap-2 list-disc pl-4">
+                            <li className="flex gap-2 items-start">
+                                <Image src="/check-0.png" alt="" width={16} height={16} className="w-4 h-4" style={{ transform: 'translate(0px, 4px)' }}/>
+                                <span>
+                                    Не намерены нелегально иммигрировать.
+                                </span>
+                            </li>
+                            <li className="flex gap-2 items-start">
+                                <Image src="/check-0.png" alt="" width={16} height={16} className="w-4 h-4" style={{ transform: 'translate(0px, 4px)' }}/>
+                                <span>
+                                    Имеете достаточные финансовые средства для покрытия расходов на поездку.
+                                </span>
+                            </li>
+                            <li className="flex gap-2 items-start">
+                                <Image src="/check-0.png" alt="" width={16} height={16} className="w-4 h-4" style={{ transform: 'translate(0px, 4px)' }}/>
+                                <span>
+                                    Планируете вернуться на родину по окончании поездки.
+                                </span>
+                            </li>
+                        </ul>
+                        <p>
+                            Без этого документа въезд во многие страны <Link href="/shengenskie-vizy" 
+                                    className="underline cursor-pointer hover:font-normal font-medium text-blue-500" 
+                                    target="_blank" rel="noopener noreferrer">Шенгенской зоны</Link> (Польша, <Link href="/shengenskie-vizy/viza-v-italiyu" 
+                                    className="underline cursor-pointer hover:font-normal font-medium text-blue-500" 
+                                    target="_blank" rel="noopener noreferrer">Италия</Link>, <Link href="/shengenskie-vizy/viza-vo-francziyu" 
+                                    className="underline cursor-pointer hover:font-normal font-medium text-blue-500" 
+                                    target="_blank" rel="noopener noreferrer">Франция</Link>), а также в <Link href="/viza-v-ssha" 
+                                    className="underline cursor-pointer hover:font-normal font-medium text-blue-500" 
+                                    target="_blank" rel="noopener noreferrer">США</Link>, <Link href="/viza-v-velikobritaniyu" 
+                                    className="underline cursor-pointer hover:font-normal font-medium text-blue-500" 
+                                    target="_blank" rel="noopener noreferrer">Великобританию</Link>, 
+                            Канаду и многие азиатские страны будет для вас закрыт. 
+                            Оформление визы - это обязательный этап планирования вашего 
+                            путешествия.
+                        </p>
+                        
+                        <p className={"italic text-[14px]"}>
+                            💡  <span className={"font-bold"}> Важный совет:</span> Не хотите тратить 
+                            недели на изучение требований консульств, стоять в очередях и бояться 
+                            отказа из-за случайной ошибки в анкете? Процесс <b>оформления документов </b>
+                            может быть утомительным. Компания <b>"VISA VAM"</b> предлагает полное сопровождение 
+                            на всех этапах <b>получения визы</b>. Мы более 8 лет на рынке и знаем все тонкости 
+                            работы с консульствами. С нами 97% одобренных виз с первой подачи и полное 
+                            отсутствие стресса для вас. Доверьте <b>оформление визы</b> профессионалам - <a className="underline cursor-pointer hover:font-normal font-medium text-blue-500" 
+                            target="_blank" rel="noopener noreferrer" onClick={openModal}>свяжитесь 
+                            с нами</a> для бесплатной 15-минутной консультации!
+                        </p>
+                    </div>
+                    <div className="w-[80%] mdd:w-full flex flex-col gap-4">
+                        <h2 className="text-[18px] md:text-[28px] sm:text-[22px] font-semibold">
+                            Как получить туристическую визу: пошаговое руководство
+                        </h2>
+                        <p>
+                            Процесс <b>оформления</b> может незначительно отличаться в зависимости от страны, 
+                            в которую вы собираетесь, но базовый алгоритм, <b>как открыть визу</b>, всегда 
+                            остается похожим. Мы разбили его на 6 простых шагов.
+                        </p>
+                        <p>
+                            <b>Шаг 1. Выбор страны и изучение точных требований.</b> Прежде всего, определитесь с направлением. Зайдите на официальный сайт консульства или посольства выбранной страны. Именно там находится самая актуальная информация. Уточните:
+                        </p>
+                        <ul className="ml-6 flex flex-col gap-2 list-disc pl-4">
+                            <li className="flex gap-2 items-start">
+                                <Image src="/check-0.png" alt="" width={16} height={16} className="w-4 h-4" style={{ transform: 'translate(0px, 4px)' }}/>
+                                <span>
+                                    Нужна ли вам <b>виза</b> в принципе (для многих стран действует безвизовый режим).
+                                </span>
+                            </li>
+                            <li className="flex gap-2 items-start">
+                                <Image src="/check-0.png" alt="" width={16} height={16} className="w-4 h-4" style={{ transform: 'translate(0px, 4px)' }}/>
+                                <span>
+                                    Какой тип <b>туристической визы</b> вам нужен (однократная, многократная).
+                                </span>
+                            </li>
+                            <li className="flex gap-2 items-start">
+                                <Image src="/check-0.png" alt="" width={16} height={16} className="w-4 h-4" style={{ transform: 'translate(0px, 4px)' }}/>
+                                <span>
+                                    Полный список необходимых <b>документов</b>.
+                                </span>
+                            </li>
+                        </ul>
+                        <p>
+                            <b>Шаг 2. Сбор необходимых документов.</b> Это самый ответственный этап. 
+                            Любая неточность может привести к отказу. Стандартный пакет <b>документов </b>
+                            на <b>туристическую</b> визу почти всегда включает:
+                        </p>
+                        <ul className="ml-6 flex flex-col gap-2 list-disc pl-4">
+                            <li className="flex gap-2 items-start">
+                                <Image src="/check-0.png" alt="" width={16} height={16} className="w-4 h-4" style={{ transform: 'translate(0px, 4px)' }}/>
+                                <span>
+                                    <b>Паспорт.</b> Действующий еще как минимум 3-6 месяцев после предполагаемой даты выезда из страны. В нем должно быть достаточно пустых страниц.
+                                </span>
+                            </li>
+                            <li className="flex gap-2 items-start">
+                                <Image src="/check-0.png" alt="" width={16} height={16} className="w-4 h-4" style={{ transform: 'translate(0px, 4px)' }}/>
+                                <span>
+                                    <b>Визовая анкета (заявление)</b>. Заполняется онлайн на сайте визового центра или консульства. Будьте предельно внимательны, не допускайте ошибок и опечаток.
+                                </span>
+                            </li>
+                            <li className="flex gap-2 items-start">
+                                <Image src="/check-0.png" alt="" width={16} height={16} className="w-4 h-4" style={{ transform: 'translate(0px, 4px)' }}/>
+                                <span>
+                                    <b>Фотографии.</b> Обычно 2 цветные фотографии установленного образца (размер, фон и требования к лицу уточняйте на сайте).
+                                </span>
+                            </li>
+                            <li className="flex gap-2 items-start">
+                                <Image src="/check-0.png" alt="" width={16} height={16} className="w-4 h-4" style={{ transform: 'translate(0px, 4px)' }}/>
+                                <span>
+                                    <b>Финансовые гарантии.</b> Справка из банка о состоянии счета или выписка о движении средств за последние 3-6 месяцев. Сумма на счету должна покрывать ваши расходы на поездку (каждая страна устанавливает свой "дневной минимум").
+                                </span>
+                            </li>
+                            <li className="flex gap-2 items-start">
+                                <Image src="/check-0.png" alt="" width={16} height={16} className="w-4 h-4" style={{ transform: 'translate(0px, 4px)' }}/>
+                                <span>
+                                    <b>Подтверждение занятости.</b> Справка с места работы на фирменном бланке, 
+                                    где указана ваша должность, оклад и то, что на время поездки вам 
+                                    предоставляется отпуск с сохранением рабочего места. Для ИП - 
+                                    свидетельство о регистрации и налоговая декларация. Для студентов - справка из вуза.
+                                </span>
+                            </li>
+                            <li className="flex gap-2 items-start">
+                                <Image src="/check-0.png" alt="" width={16} height={16} className="w-4 h-4" style={{ transform: 'translate(0px, 4px)' }}/>
+                                <span>
+                                    <b>Подтверждение проживания:</b> Бронь отеля или апартаментов на весь срок пребывания (распечатка с Booking.com или аналогичных сервисов).
+                                </span>
+                            </li>
+                            <li className="flex gap-2 items-start">
+                                <Image src="/check-0.png" alt="" width={16} height={16} className="w-4 h-4" style={{ transform: 'translate(0px, 4px)' }}/>
+                                <span>
+                                    <b>Билеты.</b> Бронь авиабилетов в обе стороны (иногда достаточно только брони, а не выкупленных билетов).
+                                </span>
+                            </li>
+                            <li className="flex gap-2 items-start">
+                                <Image src="/check-0.png" alt="" width={16} height={16} className="w-4 h-4" style={{ transform: 'translate(0px, 4px)' }}/>
+                                <span>
+                                    <b>Медицинская страховка.</b> Полис, покрывающий весь срок поездки и действующий на территории страны (например, для Шенгена - с покрытием от 30 000 евро).
+                                </span>
+                            </li>
+                        </ul>
+                        <p><b>Шаг 3. Заполнение визовой анкеты.</b> Этот <b>документ</b> - ваше "лицо" для консула. Заполняйте анкету максимально честно, корректно и без ошибок. Вся информация должна совпадать с данными в предоставленных <b>документах.</b></p>
+                        <p><b>Шаг 4. Оплата сборов и запись на подачу.</b> После сбора <b>документов</b> необходимо оплатить консульский и сервисный сборы. Затем нужно записаться на подачу <b>документов</b> в консульство или, что бывает чаще, в аккредитованный визовый центр (VFS Global, BLS, TLScontact и т.д.).</p>
+                        <p><b>Шаг 5. Подача документов и биометрия.</b> В назначенный день вы лично приходите в визовый центр, подаете собранный пакет <b>документов</b>, и у вас снимают биометрические данные (отпечатки пальцев и цифровое фото).</p>
+                        <p><b>Шаг 6. Ожидание решения.</b> Самый волнительный этап. Сроки рассмотрения варьируются. <b>Как</b> правило, <b>виза делается</b> от 5 до 15 рабочих дней, но в "высокий сезон" или для "сложных" стран (как США) процесс может занять несколько недель или даже месяцев. Отслеживать статус паспорта обычно можно онлайн на сайте визового центра.</p>
+                    </div>
+                    <div className="w-[80%] mdd:w-full flex flex-col gap-4">
+                        <p className={"italic text-[14px]"}>
+                            💡  <span className={"font-bold"}> Помощь на любом этапе:</span> Планируете сложный маршрут 
+                            с посещением нескольких стран, едете в "сложное" для <b>получения визы</b> государство 
+                            (например, <Link href="/shengenskie-vizy/viza-v-germaniyu" 
+                                    className="underline cursor-pointer hover:font-normal font-medium text-blue-500" 
+                                    target="_blank" rel="noopener noreferrer">Германия</Link>, <Link href="/shengenskie-vizy/viza-v-polshu" 
+                                    className="underline cursor-pointer hover:font-normal font-medium text-blue-500" 
+                                    target="_blank" rel="noopener noreferrer">Польша</Link>, <Link href="/viza-v-ssha" 
+                                    className="underline cursor-pointer hover:font-normal font-medium text-blue-500" 
+                                    target="_blank" rel="noopener noreferrer">США</Link> или <Link href="/viza-v-velikobritaniyu" 
+                                    className="underline cursor-pointer hover:font-normal font-medium text-blue-500" 
+                                    target="_blank" rel="noopener noreferrer">Великобритания</Link>) или у вас была история отказов? 
+                            Каждая ситуация имеет свои нюансы. Опыт специалистов <b>"VISA VAM"</b> позволяет находить 
+                            индивидуальные решения для каждого клиента. Мы поможем не только правильно <b>сделать </b>
+                            анкету, но и подготовить сильный пакет <b>документов</b>, который убедит консула в ваших 
+                            туристических намерениях.  <a className="underline cursor-pointer hover:font-normal font-medium text-blue-500" 
+                            target="_blank" rel="noopener noreferrer" onClick={openModal}>Оставьте заявку</a> на нашем 
+                            сайте, и мы бесплатно оценим ваши шансы на <b>получение визы</b>!
+                        </p>
+                    </div>
+                    
+                </div>
+
+                {/* Inject FAQ Schema */}
+                <script
+                    type="application/ld+json"
+                    dangerouslySetInnerHTML={{__html: JSON.stringify(faqSchema)}}
+                />
+
+                {/* Inject Article Schema */}
+                <script
+                    type="application/ld+json"
+                    dangerouslySetInnerHTML={{__html: JSON.stringify(articleSchema)}}
+                />
+
+                <Faq11/>
+                <div
+                    className="w-full relative flex flex-col gap-24 mdd:gap-12 px-[7%] pt-32 mdd:pt-20 text-[16px] mdd:text-[14px]">
+                    <div className="w-[80%] mdd:w-full flex flex-col gap-4">
+                        <h2 className="text-[18px] md:text-[28px] sm:text-[22px] font-semibold">Заключение</h2>
+                        <p>
+                            <b>Получение туристической визы</b> - процесс, требующий внимательности, 
+                            времени и аккуратности. Это не так страшно, как кажется на первый 
+                            взгляд, но и пренебрегать деталями нельзя. Следуя нашей пошаговой 
+                            инструкции, вы значительно повысите свои шансы на успешное <b>оформление 
+                            документов</b> с первого раза.
+                        </p>
+                        <p>
+                            А для стопроцентной уверенности и экономии своих нервов - обращайтесь 
+                            к экспертам компании <b>"VISA VAM</b>". Мы возьмем на себя всю рутину по <b>оформлению визы.</b>
+                        </p>
+                        <p>
+                            👉 <a className="underline cursor-pointer hover:font-normal font-medium text-blue-500" 
+                            target="_blank" rel="noopener noreferrer" onClick={openModal}>Оставьте заявку на сайте</a> - и начните свое путешествие без стресса и хлопот!
+                        </p>
+                    </div>
+                </div>
+                <div className="w-full relative flex flex-col px-[7%] pt-32 mdd:pt-20 text-[16px] mdd:text-[14px]">
+                    <p className="pb-[20px]">Читать следующую статью:</p>
+                    <Link href="/poleznaya-informasia/kak-poluchit-rabochyu-vizy" target="_blank" className="w-full relative left-0  pb-4">
+                        <div style={{
+                            boxShadow: '3px 2px 8px 1px #FFEEDB',
+                            backdropFilter: 'blur(200px)'
+                        }}
+                            className="flex flex-col md:flex-row md:gap-4 items-center bg-white border border-[#FFEEDB] rounded-lg shadow-md p-0 md:p-4 hover:shadow-lg transition-shadow">
+                            <Image src={"/topic10.webp"} alt={"Полезная информация"} width={1000} height={1000}
+                                    className={"w-[191px] h-[124px] dm:hidden rounded-none md:rounded-tl-none md:rounded-tr-none rounded-tl-lg rounded-tr-lg"}/>
+                            <Image src={"/topic10.webp"} alt={"Полезная информация"} width={1000} height={1000}
+                                    className={"md:hidden rounded-none md:rounded-tl-none md:rounded-tr-none rounded-tl-lg rounded-tr-lg"}/>
+                            <div className={"dm:p-4"}>
+                                <h3 className="text-base dm:font-medium md:text-xl text-black mb-1">
+                                    Как получить рабочую визу: полное руководство для белорусов в {year} году
+                                </h3>
+                                <p className="dm:text-base text-[#595959] mb-4">
+                                    Хотите работать в другой стране? Чтобы всё было легально, нужна рабочая виза. 
+                                    С ней Вы сможете устроиться на работу официально, а значит, Ваши права будут защищены. 
+                                    Давайте лучше разберёмся, как правильно получить рабочую визу.
+                                </p>
+                                <div className="flex justify-between items-center">
+                                    <span
+                                        className="dm:text-base text-[#F86F00] font-medium"
+                                    >
+                                        Читать полностью
+                                    </span>
+                                    <span className="text-[#FA9D3E] text-sm md:hidden">01.11.2025</span>
+                                </div>
+                            </div>
+                            <span className="text-[#FA9D3E] text-sm self-start dm:hidden">01.11.2025</span>
+                        </div>
+                    </Link>
+                </div>
+                <Contacts/>
+            </div>
+        </div>
+    );
+}
